@@ -3,7 +3,7 @@
 
 local klib = loadstring(game:HttpGet("https://raw.githubusercontent.com/railme37509124/KLib/main/KLib.lua"))()
 local plrs = game.Players
-local dcl = ""
+local dcl = "https://discord.gg/zesdZXthjs"
 ff = {
     Killaura = false,
     Legitaura = false,
