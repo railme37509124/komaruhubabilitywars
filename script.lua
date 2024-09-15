@@ -1,5 +1,9 @@
+-- targetstrafe and face players coming soon i already made it but forgot to add it (its on my pc)
+-- adding new ui in the future too
+
 local klib = loadstring(game:HttpGet("https://raw.githubusercontent.com/railme37509124/KLib/main/KLib.lua"))()
 local plrs = game.Players
+local dcl = ""
 ff = {
     Killaura = false,
     Legitaura = false,
@@ -225,15 +229,15 @@ LocalPlayerTab:MakeToggle({
 })
 local lcharadded = nil
 local reachval = 10
--- i basically made a hitbox extender for reach before then i realied theres a 100000x better way :3
+-- reach NOT HITBOX EXTENDER (veariy sekret hax💀💀)
 CombatTab:MakeToggle({
 	Name = "Reach",
 	Callback = function(state)
         if state then
             plrs.LocalPlayer.Character.Hitbox.Size = Vector3.new(reachval, reachval, reachval)
             lcharadded = plrs.LocalPlayer.CharacterAdded:Connect(function()
-                task.wait(2)
-                plrs.LocalPlayer.Character.Hitbox.Size = Vector3.new(reachval, reachval, reachval)
+                task.wait(2)--delay
+		plrs.LocalPlayer.Character.Hitbox.Size = Vector3.new(reachval, reachval, reachval)
             end)
         else
             if lcharadded then
@@ -290,6 +294,14 @@ OtherScriptsTab:MakeButton({
     end
 })
 
+SettingsTab:MakeButton({
+    Name = "Copy discord",
+    Callback = function()
+        setclipboard(dcl)
+    end
+})
+
+-- i was gonna add a feedbadk section but i'd have to obfuscate the script
 
 task.spawn(function()
     repeat
@@ -326,6 +338,8 @@ end)
 task.spawn(function()
     repeat
         if ff.Botfarm then
+				-- dont know what the fuck im doing
+		-- better botfarm later
             repeat
                 selected = entitynearpositon(100)
                 if entitynearpositon(100) ~= selected then
