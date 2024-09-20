@@ -1,14 +1,19 @@
--- targetstrafe and face players coming soon i already made it but forgot to add it (its on my pc)
--- adding new ui in the future too
+-- made by altered (Not discord username)
+-- railme37509124 on github
+-- dumbdog9 on youtube
+-- UI library: KLib V2
+-- Credits to: Infinite Yield, some other script for the ui library inspiration i dont know its name tho lol, and me
 
-local klib = loadstring(game:HttpGet("https://raw.githubusercontent.com/railme37509124/KLib/main/KLib.lua"))()
+local klib = loadstring(game:HttpGet("https://raw.githubusercontent.com/railme37509124/KLibV2/main/library"))() -- you can go modify this a bit to change the color theme if you would like to
+klib:SetTitle("Komaru Hub | Ability Wars")
 local plrs = game.Players
-local dcl = "https://discord.gg/zesdZXthjs"
 ff = {
     Killaura = false,
     Legitaura = false,
     Botfarm = false,
-    Antigravability = false
+    Antigravability = false,
+    Lookatplayers = false,
+    Targetstrafe
 }
 scr = function(l) return loadstring(game:HttpGet(l))() end
 function lookatplr(plr)
@@ -19,28 +24,29 @@ function lookatplr(plr)
     plrs.LocalPlayer.Character:SetPrimaryPartCFrame(newCF)
 end
 
-LocalPlayerTab = klib.CreateTab{
-	Name = "Local Player Modifications",
-	Image = "rbxassetid://116556658002611"
+LocalPlayerTab_ = klib.CreateTab{
+	Name = "Local Player"
 }
+LocalPlayerTab = LocalPlayerTab_:Section()
+LocalPlayerTab2 = LocalPlayerTab_:Section()
 
-CombatTab = klib.CreateTab{
-	Name = "PVP Advantages",
-	Image = "rbxassetid://115629447580333"
+CombatTab_ = klib.CreateTab{
+	Name = "PVP"
 }
+CombatTab = CombatTab_:Section()
 
-SettingsTab = klib.CreateTab{
-	Name = "Configuration",
-	Image = "rbxassetid://138694934892500"
+SettingsTab_ = klib.CreateTab{
+	Name = "Config"
 }
+SettingsTab = SettingsTab_:Section()
 
-OtherScriptsTab = klib.CreateTab{
-	Name = "Universal Scripts",
-	Image = "rbxassetid://84848575129381"
+OtherScriptsTab_ = klib.CreateTab{
+	Name = "Universal"
 }
+OtherScriptsTab = OtherScriptsTab_:Section()
 
 modconnections = {}
-LocalPlayerTab:MakeSlider({
+LocalPlayerTab:Slider({
 	Name = "Walk Speed",
 	Callback = function(value)
         plrs.LocalPlayer.Character.Humanoid.WalkSpeed = value
@@ -49,7 +55,7 @@ LocalPlayerTab:MakeSlider({
 	Max = 150,
 	Round = true
 })
-LocalPlayerTab:MakeSlider({
+LocalPlayerTab:Slider({
 	Name = "Jump Power",
 	Callback = function(value)
         plrs.LocalPlayer.Character.Humanoid.JumpPower = value
@@ -67,14 +73,17 @@ function entitynearpositon(dist)
         if not v.Character then continue end
         if not v.Character:FindFirstChild("Humanoid") then continue end
         if not (v.Character:FindFirstChild("Humanoid").Health > 0) then continue end
-
+        if not plrs.LocalPlayer.Character then return end
+        if not plrs.LocalPlayer.Character:FindFirstChild("Humanoid") then return end
+        if not (plrs.LocalPlayer.Character:FindFirstChild("Humanoid").Health > 0) then return end
         if (v.Character.HumanoidRootPart.Position - plrs.LocalPlayer.Character.HumanoidRootPart.Position).magnitude < dist then
             return v
         end
     end
 end
 local avpart = nil
-CombatTab:MakeToggle({
+local istouched
+CombatTab:Toggle({
     Name = "Anti Void",
     Callback = function(state)
         if state then
@@ -85,12 +94,18 @@ CombatTab:MakeToggle({
             avpart.Anchored = true
             avpart.Color = Color3.fromRGB(87, 255, 98)
             avpart.CastShadow = false
-            avpart.Size = Vector3.new(10000, 3, 10000)
-            avpart.Position = Vector3.new(156, 11, 31)
+            avpart.Size = Vector3.new(10000, 20, 10000)
+            avpart.Position = Vector3.new(156, 0, 31)
             avpart.Parent = workspace
             avpart.Touched:Connect(function(prt)
-                if prt.Name == "HumanoidRootPart" then
-                    plrs.LocalPlayer.Character.HumanoidRootPart.Velocity = Vector3.new(0, 60, 0)
+                if prt.Name == "HumanoidRootPart" and not istouched then
+                    for i = 1, 12 do
+                        plrs.LocalPlayer.Character.HumanoidRootPart.Velocity = Vector3.new(plrs.LocalPlayer.Character.HumanoidRootPart.Velocity.X, plrs.LocalPlayer.Character.HumanoidRootPart.Velocity.Y + 26, plrs.LocalPlayer.Character.HumanoidRootPart.Velocity.Z)
+                        task.wait(0.05)
+                    end
+                    istouched = true
+                    task.wait(.5)
+                    istouched = false
                 end
             end)
         else
@@ -100,29 +115,58 @@ CombatTab:MakeToggle({
         end
     end
 })
+CombatTab:TextBox({
+	Name = "AntiVoid Color",
+	ClearOnFocus = true,
+	ClearOnLost = true,
+	EnterPressed = false,
+	Placeholder = "Color in hex code",
+	Callback = function(text)
+		if avpart then
+            if not text:find("#") then
+                avpart.Color = Color3.fromHex("#" .. text)
+            else
+                avpart.Color = Color3.fromHex(text)
+            end
+        end
+	end,
+})
+CombatTab:Toggle({
+    Name = "LookAt Players",
+    Callback = function(state)
+        ff.Lookatplayers = state
+    end
+})
+CombatTab:Toggle({
+	Name = "TargetStrafe",
+	Callback = function(state)
+        ff.Targetstrafe = state
+	end
+})
+
 local karange = 10
-CombatTab:MakeToggle({
+CombatTab:Toggle({
     Name = "KillAura",
     Callback = function(state)
          ff.Killaura = state
          print("tg: ".. tostring(state))
     end
 })
-CombatTab:MakeToggle({
+CombatTab:Toggle({
     Name = "LegitAura",
     Callback = function(state)
         ff.Legitaura = state
         print("tg: ".. tostring(state))
     end
 })
-CombatTab:MakeToggle({
+CombatTab:Toggle({
     Name = "Anti Gravity Ability",
     Callback = function(state)
         ff.Antigravability = state
         print("tg: ".. tostring(state))
     end
 })
-CombatTab:MakeSlider({
+CombatTab:Slider({
 	Name = "KillAura Distance threshold",
 	Callback = function(value)
         karange = value
@@ -138,7 +182,7 @@ local function addhighlight(plr)
     local hl = Instance.new("Highlight", plr.Character)
     Highlights[plr] = hl
 end
-LocalPlayerTab:MakeToggle({
+LocalPlayerTab2:Toggle({
 	Name = "Show players",
 	Callback = function(state)
         if state then
@@ -179,7 +223,38 @@ local function addbox(plr)
     sb.Adornee = plr.Character
     SelectionBoxes[plr] = sb
 end
-LocalPlayerTab:MakeToggle({
+plraddedj = nil
+plraddedl = nil
+LocalPlayerTab2:Toggle({
+    Name = "Join/Leave notif",
+    Callback = function(state)
+        if state then
+            plraddedj = game.Players.PlayerAdded:Connect(function(v)
+                game.StarterGui:SetCore("SendNotification", {
+                    Title = "Player Join",
+                    Text = v.Name .. " [@" .. v.DisplayName .. "]",
+                    Duration = 10
+                })
+            end)
+            plraddedl = game.Players.PlayerRemoving:Connect(function(v)
+                game.StarterGui:SetCore("SendNotification", {
+                    Title = "Player Leave",
+                    Text = v.Name .. " [@" .. v.DisplayName .. "]",
+                    Duration = 10
+                })
+            end)
+        else
+            if plraddedj then
+                plraddedj:Disconnect()
+            end
+            if plraddedl then
+                plraddedl:Disconnect()
+            end
+        end
+    end,
+    Default = true
+})
+LocalPlayerTab2:Toggle({
 	Name = "Player Boxes",
 	Callback = function(state)
         if state then
@@ -213,7 +288,7 @@ LocalPlayerTab:MakeToggle({
 	end
 })
 local infjumpcon = nil
-LocalPlayerTab:MakeToggle({
+LocalPlayerTab:Toggle({
 	Name = "Infinite Jump",
 	Callback = function(state)
         if state then
@@ -229,15 +304,15 @@ LocalPlayerTab:MakeToggle({
 })
 local lcharadded = nil
 local reachval = 10
--- reach NOT HITBOX EXTENDER (veariy sekret hax💀💀)
-CombatTab:MakeToggle({
+-- i basically made a hitbox extender for reach before then i realied theres a 100000x better way :3
+CombatTab:Toggle({
 	Name = "Reach",
 	Callback = function(state)
         if state then
             plrs.LocalPlayer.Character.Hitbox.Size = Vector3.new(reachval, reachval, reachval)
             lcharadded = plrs.LocalPlayer.CharacterAdded:Connect(function()
-                task.wait(2)--delay
-		plrs.LocalPlayer.Character.Hitbox.Size = Vector3.new(reachval, reachval, reachval)
+                task.wait(2)
+                plrs.LocalPlayer.Character.Hitbox.Size = Vector3.new(reachval, reachval, reachval)
             end)
         else
             if lcharadded then
@@ -252,7 +327,7 @@ CombatTab:MakeToggle({
         showroots = state
 	end
 })]]
-CombatTab:MakeSlider({
+CombatTab:Slider({
 	Name = "Reach Range",
 	Callback = function(value)
         reachval = value
@@ -261,18 +336,19 @@ CombatTab:MakeSlider({
 	Max = 30,
 	Round = true
 })
-SettingsTab:MakeSlider({
+SettingsTab:Slider({
 	Name = "Gui Drag Speed",
 	Callback = function(value)
         klib.DragSpeed = value
 	end,
 	Min = 0,
 	Max = 1,
+    Default = klib.DragSpeed,
 	Round = false
 })
 local selected = nil
 local cti = tick()
-CombatTab:MakeToggle({
+CombatTab:Toggle({
 	Name = "KillAura AutoFarm",
 	Callback = function(state)
         ff.Botfarm = state
@@ -280,28 +356,51 @@ CombatTab:MakeToggle({
 	end
 })
 
-OtherScriptsTab:MakeButton({
+OtherScriptsTab:Button({
     Name = "Infinite Yield",
     Callback = function()
         scr("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source")
     end
 })
 
-OtherScriptsTab:MakeButton({
+OtherScriptsTab:Button({
     Name = "DEX Explorer",
     Callback = function()
         scr("https://raw.githubusercontent.com/infyiff/backup/main/dex.lua")
     end
 })
 
-SettingsTab:MakeButton({
-    Name = "Copy discord",
-    Callback = function()
-        setclipboard(dcl)
-    end
-})
+task.spawn(function()
+    repeat
+        if ff.Lookatplayers then
+            local tar = entitynearpositon(karange)
+            if tar then
+                if tar.Character then
+                    if tar.Character:FindFirstChild("HumanoidRootPart") then
+                        lookatplr(tar)
+                    end
+                end
+            end
+        end
+        task.wait(0.01)
+    until nil
+end)
 
--- i was gonna add a feedbadk section but i'd have to obfuscate the script
+task.spawn(function()
+    repeat
+        if ff.Targetstrafe then
+            local tar = entitynearpositon(karange)
+            if tar then
+                if tar.Character then
+                    if tar.Character:FindFirstChild("HumanoidRootPart") then
+                        plrs.LocalPlayer.Character.HumanoidRootPart.CFrame = tar.Character.HumanoidRootPart.CFrame + Vector3.new(math.random(1, 9), math.random(1, 9), math.random(1, 9))
+                    end
+                end
+            end
+        end
+        task.wait(0.02)
+    until nil
+end)
 
 task.spawn(function()
     repeat
@@ -338,24 +437,19 @@ end)
 task.spawn(function()
     repeat
         if ff.Botfarm then
-				-- dont know what the fuck im doing
-		-- better botfarm later
             repeat
-                selected = entitynearpositon(100)
-                if entitynearpositon(100) ~= selected then
-                    selected = entitynearpositon(100)
+                selected = entitynearpositon(1000)
+                if entitynearpositon(1000) ~= selected then
+                    selected = entitynearpositon(1000)
                 end
                 task.wait(0.01)
             until selected ~= nil
             if selected.Character then
                 if selected.Character:FindFirstChild("Humanoid") then
                     if selected.Character.Humanoid.Health > 0 then
-                        plrs.LocalPlayer.Character.Humanoid:MoveTo(selected.Character.HumanoidRootPart.Position)
-                        --plrs.LocalPlayer.Character.Humanoid.Jump = true
-                        if game.Players.LocalPlayer.Character.Humanoid.FloorMaterial ~= Enum.Material.Air then
-                            game.Players.LocalPlayer.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+                        if selected.Character.Humanoid.WalkSpeed ~= 40 then
+                            plrs.LocalPlayer.Character.HumanoidRootPart.CFrame = selected.Character.HumanoidRootPart.CFrame
                         end
-                        --plrs.LocalPlayer.Character.Humanoid.MoveToFinished:Wait()
                     else
                         task.wait(4)
                         selected = nil
@@ -378,4 +472,9 @@ task.spawn(function()
     until nil
 end)
 
-klib.SendNotification("Komaru Hub", "Loaded Successfully! Game: "..game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name, 5)
+--klib.SendNotification("Komaru Hub", "Loaded Successfully! Game: "..game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name, 5)
+game.StarterGui:SetCore("SendNotification", {
+    Title = "Loaded",
+    Text = "Enjoy using komaru hub!",
+    Duration = 10
+})
