@@ -5,6 +5,7 @@
 -- Credits to: Infinite Yield, some other script for the ui library inspiration i dont know its name tho lol, and me
 local klib = loadstring(game:HttpGet("https://raw.githubusercontent.com/railme37509124/KLibV2/main/library"))() -- you can go modify this a bit to change the color theme if you would like to
 klib:SetTitle("Komaru Hub | Ability Wars")
+local backroompos = CFrame.new(-7157, 96, -5071)
 local plrs = game.Players
 ff = {
     Killaura = false,
@@ -32,6 +33,7 @@ CombatTab_ = klib.CreateTab{
 	Name = "PVP"
 }
 CombatTab = CombatTab_:Section()
+CombatTab2 = CombatTab_:Section()
 SettingsTab_ = klib.CreateTab{
 	Name = "Config"
 }
@@ -271,14 +273,17 @@ LocalPlayerTab2:Toggle({
                     addbb(v)
                 end
                 Charadded4[v.Name] = v.CharacterAdded:Connect(function()
+                    task.wait(2)
                     addbb(v)
                 end)
             end
             Plradded4 = plrs.PlayerAdded:Connect(function(v)
                 if v.Character ~= nil then
+                    task.wait(2)
                     addbb(v)
                 end
                 Charadded4[v.Name] = v.CharacterAdded:Connect(function()
+                    task.wait(2)
                     addbb(v)
                 end)
             end)
@@ -405,6 +410,19 @@ SettingsTab:Button({
         setclipboard(dcl)
     end
 })
+local zzz = {}
+for i, v in workspace["Start Abilities"]:GetChildren() do
+    table.insert(zzz, v.Name)
+end
+table.sort(zzz)
+CombatTab2:DropDown({
+    Name = "Equip Ability",
+    List = zzz,
+    Callback = function(a)
+        game:GetService("ReplicatedStorage")["Remote Events"].AbilitySelect:FireServer(a)
+    end
+})
+
 task.spawn(function()
     repeat
         if ff.Lookatplayers then
