@@ -4,12 +4,6 @@
 -- UI library: KLib V2
 -- Credits to: Infinite Yield, some other script for the ui library inspiration i dont know its name tho lol, and me
 
--- made by altered (Not discord username)
--- railme37509124 on github
--- dumbdog9 on youtube
--- UI library: KLib V2
--- Credits to: Infinite Yield, some other script for the ui library inspiration i dont know its name tho lol, and me
-
 local klib = loadstring(game:HttpGet("https://raw.githubusercontent.com/railme37509124/KLibV2/main/library"))() -- you can go modify this a bit to change the color theme if you would like to
 klib:SetTitle("Komaru Hub | Ability Wars")
 local plrs = game.Players
