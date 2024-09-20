@@ -6,6 +6,26 @@
 local klib = loadstring(game:HttpGet("https://raw.githubusercontent.com/railme37509124/KLibV2/main/library"))() -- you can go modify this a bit to change the color theme if you would like to
 klib:SetTitle("Komaru Hub | Ability Wars")
 local backroompos = CFrame.new(-7157, 96, -5071)
+local modlist = {
+    1756212802,
+    4393226871,
+    374663048,
+    472468023,
+    355408714,
+    792324784,
+    368943249,
+    169175274,
+    597766981,
+    51266516,
+    75237783,
+    1168192062,
+    134725061,
+    3233825722,
+    479724701,
+    157508986,
+    533784762,
+    110439399,
+}
 local plrs = game.Players
 ff = {
     Killaura = false,
@@ -262,6 +282,9 @@ local function addbb(plr)
     h.TextLabel.Text = plr.leaderstats.Ability.Value
     h.StudsOffset = Vector3.new(0, -0.5, 0)
     h.AlwaysOnTop = true
+    plr.leaderstats.Ability:GetPropertyChangedSignal("Value"):Connect(function()
+        h.TextLabel.Text = plr.leaderstats.Ability.Value
+    end)
     BBGuis[plr] = h
 end
 LocalPlayerTab2:Toggle({
@@ -326,6 +349,24 @@ LocalPlayerTab2:Toggle({
             end
             if plraddedl then
                 plraddedl:Disconnect()
+            end
+        end
+    end,
+    Default = true
+})
+local amodplradded
+LocalPlayerTab2:Toggle({
+    Name = "Anti Moderator",
+    Callback = function(state)
+        if state then
+            amodplradded = game.Players.PlayerAdded:Connect(function(v)
+                if table.find(modlist, v.UserId) then
+                    plrs.LocalPlayer:Kick("\nKOMARU HUB ANTI MOD\n\t" .. v.Name .. "\t")
+                end
+            end)
+        else
+            if amodplradded then
+                amodplradded:Disconnect()
             end
         end
     end,
