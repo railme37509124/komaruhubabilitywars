@@ -3,7 +3,6 @@
 -- dumbdog9 on youtube
 -- UI library: KLib V2
 -- Credits to: Infinite Yield, some other script for the ui library inspiration i dont know its name tho lol, and me
-
 local klib = loadstring(game:HttpGet("https://raw.githubusercontent.com/railme37509124/KLibV2/main/library"))() -- you can go modify this a bit to change the color theme if you would like to
 klib:SetTitle("Komaru Hub | Ability Wars")
 local plrs = game.Players
@@ -15,6 +14,7 @@ ff = {
     Lookatplayers = false,
     Targetstrafe
 }
+dcl = "https://discord.gg/uSbrxdZ4"
 scr = function(l) return loadstring(game:HttpGet(l))() end
 function lookatplr(plr)
     local chrPos = plrs.LocalPlayer.Character.PrimaryPart.Position
@@ -23,28 +23,23 @@ function lookatplr(plr)
     local newCF = CFrame.new(chrPos,modTPos)
     plrs.LocalPlayer.Character:SetPrimaryPartCFrame(newCF)
 end
-
 LocalPlayerTab_ = klib.CreateTab{
 	Name = "Local Player"
 }
 LocalPlayerTab = LocalPlayerTab_:Section()
 LocalPlayerTab2 = LocalPlayerTab_:Section()
-
 CombatTab_ = klib.CreateTab{
 	Name = "PVP"
 }
 CombatTab = CombatTab_:Section()
-
 SettingsTab_ = klib.CreateTab{
 	Name = "Config"
 }
 SettingsTab = SettingsTab_:Section()
-
 OtherScriptsTab_ = klib.CreateTab{
 	Name = "Universal"
 }
 OtherScriptsTab = OtherScriptsTab_:Section()
-
 modconnections = {}
 LocalPlayerTab:Slider({
 	Name = "Walk Speed",
@@ -143,7 +138,6 @@ CombatTab:Toggle({
         ff.Targetstrafe = state
 	end
 })
-
 local karange = 10
 CombatTab:Toggle({
     Name = "KillAura",
@@ -349,7 +343,6 @@ LocalPlayerTab:Toggle({
 })
 local lcharadded = nil
 local reachval = 10
--- i basically made a hitbox extender for reach before then i realied theres a 100000x better way :3
 CombatTab:Toggle({
 	Name = "Reach",
 	Callback = function(state)
@@ -366,12 +359,6 @@ CombatTab:Toggle({
         end
 	end
 })
---[[CombatTab:MakeToggle({
-	Name = "[Reach] Show HumanoidRootParts",
-	Callback = function(state)
-        showroots = state
-	end
-})]]
 CombatTab:Slider({
 	Name = "Reach Range",
 	Callback = function(value)
@@ -400,21 +387,24 @@ CombatTab:Toggle({
         print("tg: ".. tostring(state))
 	end
 })
-
 OtherScriptsTab:Button({
     Name = "Infinite Yield",
     Callback = function()
         scr("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source")
     end
 })
-
 OtherScriptsTab:Button({
     Name = "DEX Explorer",
     Callback = function()
         scr("https://raw.githubusercontent.com/infyiff/backup/main/dex.lua")
     end
 })
-
+SettingsTab:Button({
+    Name = "Copy discord",
+    Callback = function()
+        setclipboard(dcl)
+    end
+})
 task.spawn(function()
     repeat
         if ff.Lookatplayers then
@@ -430,7 +420,6 @@ task.spawn(function()
         task.wait(0.01)
     until nil
 end)
-
 task.spawn(function()
     repeat
         if ff.Targetstrafe then
@@ -446,7 +435,6 @@ task.spawn(function()
         task.wait(0.02)
     until nil
 end)
-
 task.spawn(function()
     repeat
         if ff.Killaura then
@@ -462,7 +450,6 @@ task.spawn(function()
         task.wait(0.01)
     until nil
 end)
-
 task.spawn(function()
     repeat
         if ff.Legitaura then
@@ -470,7 +457,7 @@ task.spawn(function()
             if tar then
                 if tar.Character then
                     if tar.Character:FindFirstChild("HumanoidRootPart") then
-                        mouse1press() -- // legit aura 🤓
+                        mouse1press()
                     end
                 end
             end
@@ -478,7 +465,6 @@ task.spawn(function()
         task.wait(0.1)
     until nil
 end)
-
 task.spawn(function()
     repeat
         if ff.Botfarm then
@@ -505,7 +491,6 @@ task.spawn(function()
         task.wait()
     until nil
 end)
-
 task.spawn(function()
     repeat
         if ff.Antigravability then
@@ -516,8 +501,6 @@ task.spawn(function()
         task.wait(0.1)
     until nil
 end)
-
---klib.SendNotification("Komaru Hub", "Loaded Successfully! Game: "..game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name, 5)
 game.StarterGui:SetCore("SendNotification", {
     Title = "Loaded",
     Text = "Enjoy using komaru hub!",
