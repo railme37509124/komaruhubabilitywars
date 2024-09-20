@@ -4,6 +4,12 @@
 -- UI library: KLib V2
 -- Credits to: Infinite Yield, some other script for the ui library inspiration i dont know its name tho lol, and me
 
+-- made by altered (Not discord username)
+-- railme37509124 on github
+-- dumbdog9 on youtube
+-- UI library: KLib V2
+-- Credits to: Infinite Yield, some other script for the ui library inspiration i dont know its name tho lol, and me
+
 local klib = loadstring(game:HttpGet("https://raw.githubusercontent.com/railme37509124/KLibV2/main/library"))() -- you can go modify this a bit to change the color theme if you would like to
 klib:SetTitle("Komaru Hub | Ability Wars")
 local plrs = game.Players
@@ -223,37 +229,6 @@ local function addbox(plr)
     sb.Adornee = plr.Character
     SelectionBoxes[plr] = sb
 end
-plraddedj = nil
-plraddedl = nil
-LocalPlayerTab2:Toggle({
-    Name = "Join/Leave notif",
-    Callback = function(state)
-        if state then
-            plraddedj = game.Players.PlayerAdded:Connect(function(v)
-                game.StarterGui:SetCore("SendNotification", {
-                    Title = "Player Join",
-                    Text = v.Name .. " [@" .. v.DisplayName .. "]",
-                    Duration = 10
-                })
-            end)
-            plraddedl = game.Players.PlayerRemoving:Connect(function(v)
-                game.StarterGui:SetCore("SendNotification", {
-                    Title = "Player Leave",
-                    Text = v.Name .. " [@" .. v.DisplayName .. "]",
-                    Duration = 10
-                })
-            end)
-        else
-            if plraddedj then
-                plraddedj:Disconnect()
-            end
-            if plraddedl then
-                plraddedl:Disconnect()
-            end
-        end
-    end,
-    Default = true
-})
 LocalPlayerTab2:Toggle({
 	Name = "Player Boxes",
 	Callback = function(state)
@@ -286,6 +261,82 @@ LocalPlayerTab2:Toggle({
             end
         end
 	end
+})
+local BBGuis = {}
+local Charadded4 = {}
+local Plradded4 = nil
+local function addbb(plr)
+    local h = plr.Character.Head["Name Tag"]:Clone()
+    h.Parent = plr.Character.Head
+    h.Name = "abilesp"
+    h.TextLabel.Text = plr.leaderstats.Ability.Value
+    h.StudsOffset = Vector3.new(0, -0.5, 0)
+    h.AlwaysOnTop = true
+    BBGuis[plr] = h
+end
+LocalPlayerTab2:Toggle({
+	Name = "Ability ESP",
+	Callback = function(state)
+        if state then
+            for _, v in plrs:GetPlayers() do
+                if v.Character ~= nil then
+                    addbb(v)
+                end
+                Charadded4[v.Name] = v.CharacterAdded:Connect(function()
+                    addbb(v)
+                end)
+            end
+            Plradded4 = plrs.PlayerAdded:Connect(function(v)
+                if v.Character ~= nil then
+                    addbb(v)
+                end
+                Charadded4[v.Name] = v.CharacterAdded:Connect(function()
+                    addbb(v)
+                end)
+            end)
+        else
+            for _, v in Charadded4 do
+                v:Disconnect()
+            end
+            Plradded4:Disconnect()
+            for _, v in BBGuis do
+                if v ~= nil then
+                    v:Destroy()
+                end
+            end
+        end
+	end
+})
+plraddedj = nil
+plraddedl = nil
+LocalPlayerTab2:Toggle({
+    Name = "Join/Leave notif",
+    Callback = function(state)
+        if state then
+            plraddedj = game.Players.PlayerAdded:Connect(function(v)
+                game.StarterGui:SetCore("SendNotification", {
+                    Title = "Player Join",
+                    Text = v.Name .. " [@" .. v.DisplayName .. "]",
+                    Duration = 10
+                })
+            end)
+            plraddedl = game.Players.PlayerRemoving:Connect(function(v)
+                game.StarterGui:SetCore("SendNotification", {
+                    Title = "Player Leave",
+                    Text = v.Name .. " [@" .. v.DisplayName .. "]",
+                    Duration = 10
+                })
+            end)
+        else
+            if plraddedj then
+                plraddedj:Disconnect()
+            end
+            if plraddedl then
+                plraddedl:Disconnect()
+            end
+        end
+    end,
+    Default = true
 })
 local infjumpcon = nil
 LocalPlayerTab:Toggle({
