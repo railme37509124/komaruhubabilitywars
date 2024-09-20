@@ -191,6 +191,31 @@ CombatTab:Slider({
 	Max = 50,
 	Round = true
 })
+local lcharadded2 = nil
+LocalPlayerTab:Toggle({
+	Name = "Auto Arena",
+	Callback = function(state)
+        if state then
+            lcharadded2 = plrs.LocalPlayer.CharacterAdded:Connect(function()
+                task.wait(plrs.LocalPlayer:GetNetworkPing())
+                if firetouchinterest then -- god your shitty executors
+                    firetouchinterest(plrs.LocalPlayer.Character.HumanoidRootPart, workspace.Portals["Arena Frame"].Portal, 1)
+                else
+                    game.StarterGui:SetCore("SendNotification", {
+                        Title = "Shit executor",
+                        Text = v.Name .. "oops, your executor is ass and has no firetouchinterest!",
+                        Duration = 4
+                    })
+                    plrs.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Portals["Arena Frame"].Portal.CFrame
+                end
+            end)
+        else
+            if lcharadded2 then
+                lcharadded2:Disconnect()
+            end
+        end
+	end
+})
 local Highlights = {}
 local Charadded = {}
 local Plradded = nil
@@ -323,6 +348,7 @@ LocalPlayerTab2:Toggle({
         end
 	end
 })
+
 plraddedj = nil
 plraddedl = nil
 LocalPlayerTab2:Toggle({
