@@ -6,7 +6,7 @@ print("something1")
 -- dumbdog9 on youtube
 -- UI library: KLib V2
 -- Credits to: Infinite Yield, some other script for the ui library inspiration i dont know its name tho lol, and me
-local liblib = "https://raw.githubusercontent.com/railme37509124/KLibV2/24e69443012d4e5129cf14f0398aebb5d2452db5/library"
+local liblib = "https://raw.githubusercontent.com/railme37509124/KLibV2/refs/heads/main/library"
 local klib = loadstring(game:HttpGet(liblib))() -- you can go modify this a bit to change the color theme if you would like to
 klib:SetTitle("Komaru Hub | Ability Wars")
 local http = game:GetService("HttpService")
