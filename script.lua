@@ -624,6 +624,17 @@ SettingsTab:Button({
         setclipboard(dcl)
     end
 })
+SettingsTab:Button({
+    Name = "Reset Config",
+    Callback = function()
+        delfile("KOMARUCONFIG.json")
+        game.StarterGui:SetCore("SendNotification", {
+            Title = "Config Deleted",
+            Text = v.Name .. "Success!",
+            Duration = 4
+        })
+    end
+})
 if game.PlaceId == 8260276694 then
     local zzz = {}
     for i, v in workspace["Start Abilities"]:GetChildren() do
