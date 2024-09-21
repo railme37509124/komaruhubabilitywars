@@ -630,7 +630,7 @@ SettingsTab:Button({
         delfile("KOMARUCONFIG.json")
         game.StarterGui:SetCore("SendNotification", {
             Title = "Config Deleted",
-            Text = v.Name .. "Success!",
+            Text = "Success!",
             Duration = 4
         })
     end
