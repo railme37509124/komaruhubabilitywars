@@ -64,7 +64,7 @@ local sets = {
     AbilityEsp = false,
     -- KillAura Autofarm will NOT save hahahaha
 }
-local debugging = true
+local debugging = false
 function writecfg()
     if not isfile("KOMARUCONFIG.json") then
         writefile("KOMARUCONFIG.json", http:JSONEncode(sets))
@@ -264,7 +264,7 @@ local latoggle = CombatTab:Toggle({
     Callback = function(state)
         sets["LegitAura"] = state
         ff.Legitaura = state
-        print("tg: ".. tostring(state))
+        if debugging then print("tg: ".. tostring(state)) end
     end
 })
 if sets["LegitAura"] then latoggle.Click() end
@@ -274,7 +274,7 @@ local antgtoggle = CombatTab:Toggle({
     Callback = function(state)
         sets["AntiGravAbility"] = state
         ff.Antigravability = state
-        print("tg: ".. tostring(state))
+        if debugging then print("tg: ".. tostring(state)) end
     end
 })
 if sets["AntiGravAbility"] then antgtoggle.Click() end
@@ -301,7 +301,7 @@ local autoarenatog = LocalPlayerTab:Toggle({
                 else
                     game.StarterGui:SetCore("SendNotification", {
                         Title = "Shit executor",
-                        Text = v.Name .. "oops, your executor is ass and has no firetouchinterest!",
+                        Text = "oops, your executor is ass and has no firetouchinterest!",
                         Duration = 4
                     })
                     plrs.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Portals["Arena Frame"].Portal.CFrame
