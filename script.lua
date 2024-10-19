@@ -758,3 +758,8 @@ game.StarterGui:SetCore("SendNotification", {
     Text = "Enjoy using komaru hub!",
     Duration = 10
 })
+game.StarterGui:SetCore("SendNotification", {
+    Title = "Please do not use killaura",
+    Text = "Killaura will get you banned! use legitaura, it doesnt work on mobile so if you use mobile just dont use any aura!",
+    Duration = 10
+})
