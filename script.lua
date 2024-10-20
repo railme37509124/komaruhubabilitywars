@@ -300,8 +300,8 @@ local autoarenatog = LocalPlayerTab:Toggle({
                     firetouchinterest(plrs.LocalPlayer.Character.HumanoidRootPart, workspace.Portals["Arena Frame"].Portal, 1)
                 else
                     game.StarterGui:SetCore("SendNotification", {
-                        Title = "Shit executor",
-                        Text = "oops, your executor is ass and has no firetouchinterest!",
+                        Title = "bad executor",
+                        Text = "your executor is not good and has no firetouchinterest function, so we teleported you instead",
                         Duration = 4
                     })
                     plrs.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Portals["Arena Frame"].Portal.CFrame
