@@ -1,7 +1,7 @@
 repeat task.wait() until game:IsLoaded()
 task.wait(1) -- for safety ig
 print("something1")
--- made by altered (Not discord username)
+-- made by altered (2nd account) apnff0x
 -- railme37509124 on github
 -- dumbdog9 on youtube
 -- UI library: KLib V2
