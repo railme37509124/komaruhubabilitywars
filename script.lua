@@ -1,3 +1,4 @@
+print"z"
 repeat task.wait() until game:IsLoaded()
 task.wait(1) -- Queueonteleport safety ig
 
