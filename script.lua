@@ -698,8 +698,8 @@ task.spawn(function()
             if tar then
                 if tar.Character then
                     if tar.Character:FindFirstChild("HumanoidRootPart") then
-                        --mouse1press()
-			game:GetService("VirtualInputManager"):SendMouseButtonEvent(0, 0, 0, true, nil, 0) -- didnt test it yet yo
+                        mouse1press()
+			-- nvm ill fix it next week
                     end
                 end
             end
