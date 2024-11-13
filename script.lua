@@ -585,11 +585,11 @@ SettingsTab:Slider({
 	Name = "Gui Drag Speed",
 	Callback = function(value)
         sets["GuiDragSpeed"] = value
-        klib.DragSpeed = value
+        klib.DragSpeed = value / 100
 	end,
 	Min = 0,
 	Max = 100,
-    Default = klib.DragSpeed / 100,
+    Default = klib.DragSpeed,
 	Round = true
 }).Set(sets["GuiDragSpeed"])
 local selected = nil
