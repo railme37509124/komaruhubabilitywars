@@ -1,24 +1,18 @@
 repeat task.wait() until game:IsLoaded()
-task.wait(1) -- for safety ig
-print("something1")
+task.wait(1) -- Queueonteleport safety ig
+
+-- // MAIN \\ --
+
 -- made by altered (2nd account) apnff0x
 -- railme37509124 on github
--- dumbdog9 on youtube
--- UI library: KLib V2
--- Credits to: Infinite Yield, some other script for the ui library inspiration i dont know its name tho lol, and me
+-- UI library: KLib V2 (used for this script only, not for public)
+-- Credits to: Infinite Yield, some other script for the ui library inspiration, developers above
+
 local liblib = "https://raw.githubusercontent.com/railme37509124/KLibV2/refs/heads/main/library"
-local klib = loadstring(game:HttpGet(liblib))() -- you can go modify this a bit to change the color theme if you would like to
+local klib = loadstring(game:HttpGet(liblib))()
 klib:SetTitle("Komaru Hub | Ability Wars")
 local http = game:GetService("HttpService")
-local backroompos = CFrame.new(-7157, 96, -5071)
-local od = klib.Destroy
-local unloaded = false
-local destroy = function()
-    unloaded = true
-    task.wait(0.01)
-    od()
-end
-local modlist = {
+local modlist = { -- moderator user ids, add some if you want
     1756212802,
     4393226871,
     374663048,
@@ -100,9 +94,8 @@ ff = {
     Targetstrafe
 }
 
-dcl = "https://discord.gg/uSbrxdZ4"
 scr = function(l) return loadstring(game:HttpGet(l))() end
-function lookatplr(plr)
+function lookatplr(plr) -- inf yield
     local chrPos = plrs.LocalPlayer.Character.PrimaryPart.Position
     local tPos = plr.Character:FindFirstChild("HumanoidRootPart").Position
     local modTPos = Vector3.new(tPos.X,chrPos.Y,tPos.Z)
@@ -162,6 +155,7 @@ LocalPlayerTab:Slider({
 function hitplr(plr)
     game:GetService("ReplicatedStorage")["Remote Events"].Punch:FireServer(plr.Character)
 end
+-- yeah this is getting changed soon because wtf
 function entitynearpositon(dist)
     for _, v in plrs:GetPlayers() do
         if v == plrs.LocalPlayer then continue end
@@ -401,6 +395,7 @@ local showboxestog = LocalPlayerTab2:Toggle({
 	end
 })
 if sets["ShowBoxes"] then showboxestog.Click() end
+-- what on earf
 local BBGuis = {}
 local Charadded4 = {}
 local Plradded4 = nil
@@ -552,7 +547,7 @@ local reachtog = CombatTab:Toggle({
         if state then
             plrs.LocalPlayer.Character.Hitbox.Size = Vector3.new(reachval, reachval, reachval)
             lcharadded = plrs.LocalPlayer.CharacterAdded:Connect(function()
-                task.wait(2)
+                task.wait(2) -- if you have > 2k ping, wont work L
                 plrs.LocalPlayer.Character.Hitbox.Size = Vector3.new(reachval, reachval, reachval)
             end)
         else
@@ -565,7 +560,7 @@ local reachtog = CombatTab:Toggle({
 if sets["Reach"] then reachtog.Click() end
 cadded = nil
 local avtime = CombatTab:Toggle({
-	Name = "Avoid Time",
+	Name = "Avoid Time", -- this feature really sucks
 	Callback = function(state)
         sets["AvoidTime"] = state
         if state then
@@ -593,9 +588,9 @@ SettingsTab:Slider({
         klib.DragSpeed = value
 	end,
 	Min = 0,
-	Max = 1,
-    Default = klib.DragSpeed,
-	Round = false
+	Max = 100,
+    Default = klib.DragSpeed 100,
+	Round = true
 }).Set(sets["GuiDragSpeed"])
 local selected = nil
 local cti = tick()
@@ -703,6 +698,8 @@ task.spawn(function()
                 if tar.Character then
                     if tar.Character:FindFirstChild("HumanoidRootPart") then
                         mouse1press()
+			--game:GetService("VirtualInputManager"):SendMouse1ButtonEvent
+							-- hold on
                     end
                 end
             end
