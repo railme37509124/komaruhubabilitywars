@@ -1,14 +1,11 @@
 repeat task.wait() until game:IsLoaded()
-task.wait(1) -- for safety ig
-print("something1")
--- made by altered (2nd account) apnff0x
--- railme37509124 on github
--- dumbdog9 on youtube
--- UI library: KLib V2
--- Credits to: Infinite Yield, some other script for the ui library inspiration i dont know its name tho lol, and me
+task.wait(1)
+
+-- Credits to: Infinite Yield, PPHud for the ui library inspiration, and me
 local liblib = "https://raw.githubusercontent.com/railme37509124/KLibV2/refs/heads/main/library"
-local klib = loadstring(game:HttpGet(liblib))() -- you can go modify this a bit to change the color theme if you would like to
-klib:SetTitle("Komaru Hub | Ability Wars")
+local klib = loadstring(game:HttpGet(liblib))()
+klib:SetTitle("🎄Komaru Hub | Ability Wars")
+
 local http = game:GetService("HttpService")
 local backroompos = CFrame.new(-7157, 96, -5071)
 local od = klib.Destroy
