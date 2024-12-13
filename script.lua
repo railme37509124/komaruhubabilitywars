@@ -752,7 +752,7 @@ task.spawn(function()
 end)
 game.StarterGui:SetCore("SendNotification", {
     Title = "Loaded",
-    Text = "Enjoy using komaru hub!",
+    Text = "Enjoy using komaru hub!\nhttps://discord.gg/zNzJVgFGae",
     Duration = 10
 })
 game.StarterGui:SetCore("SendNotification", {
