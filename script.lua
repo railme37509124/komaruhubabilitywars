@@ -618,7 +618,7 @@ OtherScriptsTab:Button({
 SettingsTab:Button({
     Name = "Copy discord",
     Callback = function()
-        setclipboard(dcl)
+        setclipboard("https://discord.gg/zNzJVgFGae")
     end
 })
 SettingsTab:Button({
