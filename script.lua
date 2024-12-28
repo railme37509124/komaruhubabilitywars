@@ -174,7 +174,6 @@ function entitynearpositon(dist)
     end
 end
 local avpart = nil
-local istouched
 local antivoidtoggle = CombatTab:Toggle({
     Name = "Anti Void",
     Callback = function(state)
@@ -183,26 +182,13 @@ local antivoidtoggle = CombatTab:Toggle({
             avpart = Instance.new("Part")
             avpart.Material = Enum.Material.ForceField
             avpart.Transparency = 0
-            avpart.CanCollide = false
+            avpart.CanCollide = true
             avpart.Anchored = true
             avpart.Color = Color3.fromRGB(87, 255, 98)
             avpart.CastShadow = false
             avpart.Size = Vector3.new(10000, 20, 10000)
             avpart.Position = Vector3.new(156, 0, 31)
             avpart.Parent = workspace
-            avpart.Touched:Connect(function(prt)
-                if prt.Name == "HumanoidRootPart" and not istouched then
-                    if prt.Parent.Name == plrs.LocalPlayer.Name then
-                        for i = 1, 12 do
-                            plrs.LocalPlayer.Character.HumanoidRootPart.Velocity = Vector3.new(plrs.LocalPlayer.Character.HumanoidRootPart.Velocity.X, plrs.LocalPlayer.Character.HumanoidRootPart.Velocity.Y + 26, plrs.LocalPlayer.Character.HumanoidRootPart.Velocity.Z)
-                            task.wait(0.05)
-                        end
-                        istouched = true
-                        task.wait(.5)
-                        istouched = false
-                    end
-                end
-            end)
         else
             if avpart then
                 avpart:Destroy()
