@@ -4,7 +4,7 @@ task.wait(1)
 -- Credits to: Infinite Yield, PPHud for the ui library inspiration, and me
 local liblib = "https://raw.githubusercontent.com/railme37509124/KLibV2/refs/heads/main/library"
 local klib = loadstring(game:HttpGet(liblib))()
-klib:SetTitle("🎄Komaru Hub | Ability Wars")
+klib:SetTitle("🎆Komaru Hub | Ability Wars")
 
 local http = game:GetService("HttpService")
 local backroompos = CFrame.new(-7157, 96, -5071)
