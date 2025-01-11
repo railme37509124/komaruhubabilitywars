@@ -1,3 +1,5 @@
+-- THIS IS A TEST! Running this is going to do *nothing*. so far there are just 2 components (buttons and switches) can be tested by running this it will show the demo ui but it wont do anything.
+
 --[[
         ██████╗░██████╗░░█████╗░███╗░░░███╗███████╗████████╗██╗░░██╗███████╗██╗░░░██╗░██████╗
         ██╔══██╗██╔══██╗██╔══██╗████╗░████║██╔════╝╚══██╔══╝██║░░██║██╔════╝██║░░░██║██╔════╝
