@@ -71,7 +71,7 @@ end
 function savesettings()
     writefile("KOMARUCONFIG.json", http:JSONEncode(sets))
     if debugging then 
-        print("--------------------\n" .. http:JSONEncode(sets))
+        print(("-"):rep(15) .. "\n" .. http:JSONEncode(sets))
     end
 end
 
