@@ -1,3 +1,5 @@
+-- ability wars 1/16/2025 💀
+
 repeat task.wait() until game:IsLoaded()
 task.wait(1)
 
