@@ -99,7 +99,7 @@ ff = {
     Targetstrafe
 }
 
-dcl = "https://discord.gg/uSbrxdZ4"
+dcl = "https://discord.gg/hFCsjYRVJ4"
 scr = function(l) return loadstring(game:HttpGet(l))() end
 function lookatplr(plr)
     local chrPos = plrs.LocalPlayer.Character.PrimaryPart.Position
@@ -606,7 +606,7 @@ OtherScriptsTab:Button({
 SettingsTab:Button({
     Name = "Copy discord",
     Callback = function()
-        setclipboard("https://discord.gg/zNzJVgFGae")
+        setclipboard(dcl)
     end
 })
 SettingsTab:Button({
@@ -740,7 +740,7 @@ task.spawn(function()
 end)
 game.StarterGui:SetCore("SendNotification", {
     Title = "Loaded",
-    Text = "Enjoy using komaru hub!\nhttps://discord.gg/zNzJVgFGae",
+    Text = "Enjoy using komaru hub!\n" .. dcl,
     Duration = 10
 })
 game.StarterGui:SetCore("SendNotification", {
