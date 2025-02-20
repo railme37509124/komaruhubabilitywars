@@ -1,7 +1,6 @@
--- ability wars 1/16/2025 💀
-
-repeat task.wait() until game:IsLoaded()
-task.wait(1)
+if true then
+	game.Players.LocalPlayer:Kick("You have been banned. Time Remaining: Permanent\nIf you belive this is a mistake please contact us")
+end
 
 -- Credits to: Infinite Yield, PPHud for the ui library inspiration, and me
 local liblib = "https://raw.githubusercontent.com/railme37509124/KLibV2/refs/heads/main/library"
